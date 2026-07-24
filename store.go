@@ -42,3 +42,11 @@ func (s *Store) Keys() []string {
 	}
 	return out
 }
+
+// Reset removes all entries from the store, leaving it empty. It acquires the
+// write lock so it is safe to call concurrently with other operations.
+func (s *Store) Reset() {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.m = make(map[string]int)
+}
