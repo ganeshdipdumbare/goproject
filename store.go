@@ -27,9 +27,14 @@ func (s *Store) Get(key string) (int, bool) {
 
 // Set stores val under key, overwriting any previous value.
 func (s *Store) Set(key string, val int) {
+	s.m[key] = val
+}
+
+// Reset removes all entries from the store, returning it to an empty state.
+func (s *Store) Reset() {
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	s.m[key] = val
+	s.m = make(map[string]int)
 }
 
 // Keys returns a snapshot of the keys currently in the store.
