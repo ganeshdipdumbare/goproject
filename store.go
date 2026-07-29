@@ -32,6 +32,18 @@ func (s *Store) Set(key string, val int) {
 	s.m[key] = val
 }
 
+// Sum returns the arithmetic sum of all values currently in the store.
+// An empty store returns 0.
+func (s *Store) Sum() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	total := 0
+	for _, v := range s.m {
+		total += v
+	}
+	return total
+}
+
 // Keys returns a snapshot of the keys currently in the store.
 func (s *Store) Keys() []string {
 	s.mu.RLock()
