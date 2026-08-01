@@ -32,6 +32,15 @@ func (s *Store) Set(key string, val int) {
 	s.m[key] = val
 }
 
+// Reset removes all entries from the store, leaving it empty and ready for
+// reuse. It acquires the write lock so it serializes with all other reads and
+// writes, keeping the operation safe for concurrent use.
+func (s *Store) Reset() {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.m = make(map[string]int)
+}
+
 // Keys returns a snapshot of the keys currently in the store.
 func (s *Store) Keys() []string {
 	s.mu.RLock()
