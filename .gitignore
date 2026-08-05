@@ -1,0 +1,10 @@
+# Added by Dispatch: this repository had no .gitignore, so a baseline one
+# was added to keep common build/cache artifacts out of future commits.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+node_modules/
+.DS_Store
