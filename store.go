@@ -32,6 +32,19 @@ func (s *Store) Set(key string, val int) {
 	s.m[key] = val
 }
 
+// Sum returns the total of all values currently in the store. An empty store
+// sums to 0. Like Get and Keys, it holds the read lock for the duration of the
+// iteration so it observes a consistent snapshot.
+func (s *Store) Sum() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	total := 0
+	for _, v := range s.m {
+		total += v
+	}
+	return total
+}
+
 // Keys returns a snapshot of the keys currently in the store.
 func (s *Store) Keys() []string {
 	s.mu.RLock()
