@@ -32,6 +32,17 @@ func (s *Store) Set(key string, val int) {
 	s.m[key] = val
 }
 
+// Remove deletes key from the store. It is a no-op when the key is absent, so
+// callers do not need to check for existence first. The return value reports
+// whether a key was actually removed.
+func (s *Store) Remove(key string) bool {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	_, ok := s.m[key]
+	delete(s.m, key)
+	return ok
+}
+
 // Keys returns a snapshot of the keys currently in the store.
 func (s *Store) Keys() []string {
 	s.mu.RLock()
