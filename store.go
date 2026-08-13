@@ -32,6 +32,14 @@ func (s *Store) Set(key string, val int) {
 	s.m[key] = val
 }
 
+// Remove deletes key from the store. Removing a key that is not present is a
+// safe no-op, mirroring the behaviour of Go's built-in delete.
+func (s *Store) Remove(key string) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	delete(s.m, key)
+}
+
 // Keys returns a snapshot of the keys currently in the store.
 func (s *Store) Keys() []string {
 	s.mu.RLock()
