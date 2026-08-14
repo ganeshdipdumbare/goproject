@@ -1,0 +1,9 @@
+# Added by Dispatch: this repository had no .gitignore, so a baseline one
+# was added to keep common build/cache artifacts out of future commits.
+
+# Go
+*.test
+*.out
+
+# macOS
+.DS_Store
