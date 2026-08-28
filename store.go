@@ -1,4 +1,4 @@
-package ledger
+package goproject
 
 import "sync"
 
@@ -30,6 +30,14 @@ func (s *Store) Set(key string, val int) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.m[key] = val
+}
+
+// Remove deletes key from the store. Removing a key that is not present is a
+// no-op.
+func (s *Store) Remove(key string) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	delete(s.m, key)
 }
 
 // Keys returns a snapshot of the keys currently in the store.
