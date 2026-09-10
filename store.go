@@ -42,3 +42,16 @@ func (s *Store) Keys() []string {
 	}
 	return out
 }
+
+// Sum returns the total of all values currently in the store. An empty store
+// sums to 0. The read lock is held for the whole traversal, so the result is a
+// consistent snapshot rather than a mix of pre- and post-write states.
+func (s *Store) Sum() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	total := 0
+	for _, v := range s.m {
+		total += v
+	}
+	return total
+}
