@@ -42,3 +42,15 @@ func (s *Store) Keys() []string {
 	}
 	return out
 }
+
+// Sum returns the sum of all values currently in the store. An empty store
+// sums to 0.
+func (s *Store) Sum() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	total := 0
+	for _, v := range s.m {
+		total += v
+	}
+	return total
+}
