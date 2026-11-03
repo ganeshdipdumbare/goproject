@@ -1,13 +1,15 @@
 package ledger
 
 // Withdraw subtracts amount from the value stored under key and reports
-// whether the debit was applied. A stored zero is treated as an empty
-// balance, so the debit is refused.
+// whether the key was present. A missing key is left unchanged. A stored
+// zero is present, so the debit is applied.
 func (s *Store) Withdraw(key string, amount int) bool {
-	v, _ := s.Get(key)
-	if v == 0 {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	v, ok := s.m[key]
+	if !ok {
 		return false
 	}
-	s.Set(key, v-amount)
+	s.m[key] = v - amount
 	return true
 }
