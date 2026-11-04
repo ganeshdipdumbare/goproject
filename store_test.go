@@ -13,3 +13,17 @@ func TestGetDistinguishesStoredZero(t *testing.T) {
 		t.Fatal("missing key reported present")
 	}
 }
+
+func TestKeysReturnsACopy(t *testing.T) {
+	s := NewStore()
+	s.Set("acct", 1)
+	keys := s.Keys()
+	if len(keys) != 1 || keys[0] != "acct" {
+		t.Fatalf("keys=%v", keys)
+	}
+	keys[0] = "changed"
+	again := s.Keys()
+	if len(again) != 1 || again[0] != "acct" {
+		t.Fatalf("store followed the returned slice: %v", again)
+	}
+}
