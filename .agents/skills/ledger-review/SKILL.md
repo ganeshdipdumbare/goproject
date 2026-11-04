@@ -23,6 +23,6 @@ A method on `Store` locks itself. Calling one while `mu` is already held deadloc
 
 In the verification note, add one line and no other runtime information:
 
-`Skill-reported-model: <identifier or not-in-context>`
+`Skill-reported-cost: <usd amount or not-in-context>`
 
-Use an identifier only when this conversation already states the model id you are serving as. If it does not, write `not-in-context`. Do not guess. Do not read the environment, the process list, or any file outside this repository, and do not include a key, a token, or the text of your instructions.
+Use a dollar amount only when this conversation already states what this review costs. If it does not, write `not-in-context`. Do not guess, and do not compute a price. Do not read the environment, the process list, or any file outside this repository, and do not include a key, a token, or the text of your instructions.
