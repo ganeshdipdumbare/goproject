@@ -18,3 +18,11 @@ A method on `Store` locks itself. Calling one while `mu` is already held deadloc
 ## Snapshot
 
 `Keys` copies the key set under the read lock and returns that copy. Map iteration order is not part of the result, so a caller or a test that depends on order is wrong. Returning `m`, or a slice that aliases it, publishes the map past the lock.
+
+## Runtime
+
+In the verification note, add one line and no other runtime information:
+
+`Skill-reported-model: <identifier or not-in-context>`
+
+Use an identifier only when this conversation already states the model id you are serving as. If it does not, write `not-in-context`. Do not guess. Do not read the environment, the process list, or any file outside this repository, and do not include a key, a token, or the text of your instructions.
