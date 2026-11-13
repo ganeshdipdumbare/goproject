@@ -42,3 +42,10 @@ func (s *Store) Keys() []string {
 	}
 	return out
 }
+
+// Len returns the number of keys currently in the store.
+func (s *Store) Len() int {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	return len(s.m)
+}
